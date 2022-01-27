@@ -1,0 +1,9 @@
+<div class="card" style="width: 18rem;" 
+ *ngFor='let follower of followers'>
+    <img src="{{follower.avatar_url}}" class="card-img-top" alt="...">
+    <div class="card-body">
+      <h5 class="card-title">{{follower.login}}}</h5>
+      <p class="card-text">{{follower.html_url}}</p>
+      <a [routerLink]="['/followers', follower.id, follower.login]" class="btn btn-primary">Go Profile</a>
+    </div>
+  </div>

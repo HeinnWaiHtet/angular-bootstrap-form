@@ -1,0 +1,73 @@
+<form #courseForm='ngForm' (ngSubmit)='submit(courseForm.value)'>
+    
+    <div class="form-group">
+        <label for="courseName">
+            Course Name
+        </label>
+        <input 
+          minlength="5"
+          required
+          autocomplete="off"
+          ngModel
+          name='courseName'
+          #courseName='ngModel'
+          type="text" 
+          id="courseName" 
+          class="form-control">
+          <div 
+            *ngIf='courseName.touched && courseName.invalid'
+            class="alert alert-danger">
+              <div *ngIf='courseName.errors?.minlength'>
+                  Course name must be at least {{courseName?.errors?.minlength?.requiredLength}}
+              </div>
+              <div *ngIf='courseName.errors?.required'>Enter Your Course</div>
+          </div>
+    </div>
+
+    <div class="form-group">
+        <label for="">
+            Category
+        </label>
+        <select 
+          ngModel
+          name="courseLists" 
+          #courseLists='ngModel'
+          id="courseLists"
+          class="form-control"
+          (change)='change(courseLists)'>
+          <option selected value="0">Select Category</option>
+          <option 
+            *ngFor='let course of category' 
+            [value]='course.id'>
+             {{course.name}}
+          </option>
+        </select>
+        <div 
+          *ngIf='courseLists.touched && courseLists?.value == 0'
+          class="alert alert-danger">
+          <div *ngIf='courseLists?.value == 0'>
+              Check Your Current Select Category
+          </div>
+        </div>
+    </div>
+
+    <div class="checkbox">
+        <label for="gurantee">
+            <input
+              ngModel
+              name='hasGurantee'
+              type="checkbox"
+              id='gurantee'> 30-days money back gurantee
+        </label>
+    </div>
+
+    <p>
+        {{courseForm.value  | json}}
+    </p>
+
+    <div class="form-group">
+        <button 
+          [disabled]='courseForm.invalid'
+          class="btn btn-primary">Create</button>
+    </div>
+</form>
